@@ -14,13 +14,10 @@ import java.util.Optional;
 @Slf4j
 public class UserJDBCRepositoryImpl implements UserRepository {
 
-
+    public static final String SELECT_TASKS_BY_USER_ID = "SELECT * FROM tasks JOIN user_task ut on tasks.id = ut.task_id WHERE ut.user_id = ?";
     private static final String DELETE_USER = "DELETE FROM users WHERE id=?";
-    private static final String SELECT_USERS_BY_USER_NAME = "SELECT * FROM users WHERE userName=?";
+    private static final String SELECT_USERS_BY_USER_NAME = "SELECT * FROM users WHERE user_name=?";
     private static final String SELECT_USERS = "SELECT * FROM users ORDER BY id";
-    public static final String SELECT_TASKS_BY_USER_ID = "SELECT * FROM tasks WHERE user_id = ?";
-
-
     public static UserJDBCRepositoryImpl INSTANCE;
 
     private UserJDBCRepositoryImpl() {
@@ -39,7 +36,7 @@ public class UserJDBCRepositoryImpl implements UserRepository {
     public void save(User user) {
         try (Connection connection = DataSourceProvider.getPostgreSqlConnection();
              PreparedStatement ps = connection.prepareStatement(
-                     "INSERT INTO users(firstName, lastName, userName) VALUES (?, ?, ?)",
+                     "INSERT INTO users(first_name, last_name, user_name) VALUES (?, ?, ?)",
                      Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setString(1, user.getFirstName());
