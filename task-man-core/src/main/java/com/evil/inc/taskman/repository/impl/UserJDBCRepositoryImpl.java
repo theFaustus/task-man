@@ -37,7 +37,7 @@ public class UserJDBCRepositoryImpl implements UserRepository {
 
     @Override
     public void saveUser(User user) {
-        try (Connection connection = DataSourceProvider.getMysqlConnection();
+        try (Connection connection = DataSourceProvider.getPostgreSqlConnection();
              PreparedStatement ps = connection.prepareStatement(
                      "INSERT INTO users(firstName, lastName, userName) VALUES (?, ?, ?)",
                      Statement.RETURN_GENERATED_KEYS)) {
@@ -63,7 +63,7 @@ public class UserJDBCRepositoryImpl implements UserRepository {
     public Optional<User> findByUsername(String username) {
 
         Optional<User> result;
-        try (Connection connection = DataSourceProvider.getMysqlConnection();
+        try (Connection connection = DataSourceProvider.getPostgreSqlConnection();
              PreparedStatement ps = connection.prepareStatement(SELECT_USERS_BY_USER_NAME);
              PreparedStatement ps2 = connection.prepareStatement(SELECT_TASKS_BY_USER_ID)) {
 
@@ -98,7 +98,7 @@ public class UserJDBCRepositoryImpl implements UserRepository {
     @Override
     public List<User> findAllUsers() {
         List<User> users = new ArrayList<>();
-        try (Connection connection = DataSourceProvider.getMysqlConnection();
+        try (Connection connection = DataSourceProvider.getPostgreSqlConnection();
              PreparedStatement ps1 = connection.prepareStatement(SELECT_USERS);
              PreparedStatement ps2 = connection.prepareStatement(SELECT_TASKS_BY_USER_ID)) {
 
@@ -138,7 +138,7 @@ public class UserJDBCRepositoryImpl implements UserRepository {
 
     @Override
     public void deleteUserById(Long id) {
-        try (Connection connection = DataSourceProvider.getMysqlConnection();
+        try (Connection connection = DataSourceProvider.getPostgreSqlConnection();
              PreparedStatement ps1 = connection.prepareStatement(DELETE_USER)) {
             ps1.setLong(1, id);
             ps1.executeUpdate();

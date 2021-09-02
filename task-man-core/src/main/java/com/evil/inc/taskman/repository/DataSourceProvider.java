@@ -11,7 +11,7 @@ public class DataSourceProvider {
     private static String USERNAME = "postgres";
     private static String PASSWORD = "123456";
 
-    public static Connection getMysqlConnection() throws SQLException {
+    public static Connection getPostgreSqlConnection() throws SQLException {
         return DriverManager.getConnection(URL + DATABASE, USERNAME, PASSWORD);
     }
 }

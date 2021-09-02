@@ -35,7 +35,7 @@ public class TaskJDBCRepositoryImpl implements TaskRepository {
 
         int result = 0;
         User user = null;
-        try (Connection connection = DataSourceProvider.getMysqlConnection();
+        try (Connection connection = DataSourceProvider.getPostgreSqlConnection();
              PreparedStatement ps1 = connection.prepareStatement("SELECT * FROM users WHERE username=?");
              PreparedStatement ps2 = connection.prepareStatement("INSERT INTO tasks(title, description, user_id) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
 
@@ -71,7 +71,7 @@ public class TaskJDBCRepositoryImpl implements TaskRepository {
     public List<Task> getTasksFor(String username) {
         List<Task> tasks = new ArrayList<>();
         User user = null;
-        try (Connection connection = DataSourceProvider.getMysqlConnection();
+        try (Connection connection = DataSourceProvider.getPostgreSqlConnection();
              PreparedStatement ps1 = connection.prepareStatement("SELECT * FROM users WHERE username = ?");
              PreparedStatement ps2 = connection.prepareStatement("SELECT * FROM tasks WHERE user_id = ?")) {
 
@@ -109,7 +109,7 @@ public class TaskJDBCRepositoryImpl implements TaskRepository {
     @Override
     public void deleteTaskByTitleFor(String taskTitle, String username) {
 
-        try (Connection connection = DataSourceProvider.getMysqlConnection();
+        try (Connection connection = DataSourceProvider.getPostgreSqlConnection();
              PreparedStatement ps1 = connection.prepareStatement("DELETE FROM tasks WHERE title = ? AND user_id in(select id from users where username = ?)")) {
 
             ps1.setString(1, taskTitle);
