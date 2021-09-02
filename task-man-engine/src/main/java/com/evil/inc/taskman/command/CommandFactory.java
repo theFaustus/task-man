@@ -22,46 +22,18 @@ public class CommandFactory {
 
 
     public static Command parseCommandArguments(String[] arguments) throws InvalidCommandException {
-//        String joinedArguments = String.join(" ", arguments); //so we can have parameter values with spaces
-//        String[] commandAndParameters = joinedArguments.split(" -"); //split by ' -' again so we have the command and its parameters
-//        final String command = arguments[COMMAND];
+        String joinedArguments = String.join(" ", arguments); //so we can have parameter values with spaces
+        String[] commandAndParameters = joinedArguments.split(" -"); //split by ' -' again so we have the command and its parameters
+        final String command = arguments[COMMAND];
 
-        switch (arguments[0]) {
-            case CREATE_USER_COMMAND:
-                if (arguments.length < 4) {
-                    throw new InvalidCommandException("Oops. Please refer to the usage of the command : " + "-createUser -fn='FirstName' -ln='LastName' -un='UserName'");
-                }
-                return new AddUserCommand(CommandParameterParser.getUsername(arguments),
-                                          CommandParameterParser.getFirstName(arguments),
-                                          CommandParameterParser.getLastName(arguments));
-
-            case SHOW_ALL_USERS_COMMAND:
-                return new GetAllUsersCommand();
-
-            case ADD_TASK_FOR_COMMAND:
-                if (arguments.length < 4) {
-                    throw new InvalidCommandException(
-                            "Oops. Please refer to the usage of the command : -addTask -un='UserName' -tt='TaskTitle' -td='TaskDescription'");
-                }
-                return new AddTaskCommand(CommandParameterParser.getTaskTitle(arguments),
-                                          CommandParameterParser.getTaskDescription(arguments),
-                                          CommandParameterParser.getUsername(arguments));
-
-            case DELETE_TASK_BY_TITLE_FOR_COMMAND:
-                if (arguments.length < 3) {
-                    throw new InvalidCommandException(
-                            "Oops. Please refer to the usage of the command: -deleteTask -un='UserName' -tt='TaskTitle'");
-                }
-                return new DeleteTaskCommand(CommandParameterParser.getTaskTitle(arguments), CommandParameterParser.getUsername(arguments));
-
-            case SHOW_TASKS_FOR_COMMAND:
-                if (arguments.length < 2) {
-                    throw new InvalidCommandException(
-                            "Oops. Please refer to the usage of the command : -showTasks -un='UserName'");
-                }
-                return new GetTasksCommand(CommandParameterParser.getUsername(arguments));
-            default:
-                throw new InvalidCommandException("Oops. Unknown command [" + arguments[0] + "] Please use one of the following commands: -createUser -showAllUsers -addTask");
-        }
+        return switch (command) {
+            case CREATE_USER_COMMAND -> new AddUserCommand(commandAndParameters);
+            case SHOW_ALL_USERS_COMMAND -> new GetAllUsersCommand();
+            case ADD_TASK_FOR_COMMAND -> new AddTaskCommand(commandAndParameters);
+            case DELETE_TASK_BY_TITLE_FOR_COMMAND -> new DeleteTaskCommand(commandAndParameters);
+            case SHOW_TASKS_FOR_COMMAND -> new GetTasksCommand(commandAndParameters);
+            default -> throw new InvalidCommandException(
+                    "Oops. Unknown command [" + command + "] Please use one of the following commands: -createUser -showAllUsers -addTask");
+        };
     }
 }

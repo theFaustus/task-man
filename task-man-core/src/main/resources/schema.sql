@@ -1,24 +1,33 @@
-
--- -----------------------------------------------------
--- Table `taskmanager`.`user`
--- -----------------------------------------------------
-CREATE TABLE "users"
+create table users
 (
-    id        serial primary key,
-    firstName VARCHAR(45) NULL,
-    last_name VARCHAR(45) NULL,
-    username  VARCHAR(45) NULL
+    id bigint not null
+        constraint users_pkey
+            primary key,
+    first_name varchar(255),
+    last_name varchar(255),
+    user_name varchar(255)
+        constraint uk_k8d0f2n7n88w1a16yhua64onx
+            unique
 );
--- -----------------------------------------------------
--- Table taskmanager.tasks
--- -----------------------------------------------------
-CREATE TABLE tasks
+
+create table tasks
 (
-    id          serial primary key,
-    title       VARCHAR(256) NOT NULL,
-    description VARCHAR(256) NOT NULL,
-    user_id     int,
-    FOREIGN KEY (user_id) REFERENCES users (id)
-        ON DELETE CASCADE
+    id bigint not null
+        constraint tasks_pkey
+            primary key,
+    description varchar(255),
+    title varchar(255)
+);
+
+create table user_task
+(
+    user_id bigint not null
+        constraint fkj6lai3y87ttxldkysg1549etg
+            references users,
+    task_id bigint not null
+        constraint fkp7b0g1h9lxrklls4s1pw68nj2
+            references tasks,
+    constraint user_task_pkey
+        primary key (user_id, task_id)
 );
 

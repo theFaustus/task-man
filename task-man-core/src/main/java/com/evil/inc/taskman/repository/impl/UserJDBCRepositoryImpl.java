@@ -16,8 +16,9 @@ public class UserJDBCRepositoryImpl implements UserRepository {
 
 
     private static final String DELETE_USER = "DELETE FROM users WHERE id=?";
-    private static final String FIND_BY_USERNAME = "SELECT * FROM users WHERE userName=?";
-    private static final String FIND_ALL = "SELECT * FROM users ORDER BY id";
+    private static final String SELECT_USERS_BY_USER_NAME = "SELECT * FROM users WHERE userName=?";
+    private static final String SELECT_USERS = "SELECT * FROM users ORDER BY id";
+    public static final String SELECT_TASKS_BY_USER_ID = "SELECT * FROM tasks WHERE user_id = ?";
 
 
     public static UserJDBCRepositoryImpl INSTANCE;
@@ -61,19 +62,18 @@ public class UserJDBCRepositoryImpl implements UserRepository {
     @Override
     public Optional<User> findByUsername(String username) {
 
-//        User user = null;
         Optional<User> result;
         try (Connection connection = DataSourceProvider.getMysqlConnection();
-             PreparedStatement ps = connection.prepareStatement(FIND_BY_USERNAME);
-             PreparedStatement ps2 = connection.prepareStatement("SELECT * FROM tasks WHERE user_id = ?")) {
+             PreparedStatement ps = connection.prepareStatement(SELECT_USERS_BY_USER_NAME);
+             PreparedStatement ps2 = connection.prepareStatement(SELECT_TASKS_BY_USER_ID)) {
 
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                final User user = new User(rs.getString("firstName"),
-                                           rs.getString("lastName"),
-                                           rs.getString("userName"));
+                final User user = new User(rs.getString("first_name"),
+                                           rs.getString("last_name"),
+                                           rs.getString("user_name"));
                 user.setId(rs.getLong("id"));
                 result = Optional.of(user);
                 ps2.setLong(1, user.getId());
@@ -99,14 +99,14 @@ public class UserJDBCRepositoryImpl implements UserRepository {
     public List<User> findAllUsers() {
         List<User> users = new ArrayList<>();
         try (Connection connection = DataSourceProvider.getMysqlConnection();
-             PreparedStatement ps1 = connection.prepareStatement(FIND_ALL);
-             PreparedStatement ps2 = connection.prepareStatement("SELECT * FROM tasks WHERE user_id = ?")) {
+             PreparedStatement ps1 = connection.prepareStatement(SELECT_USERS);
+             PreparedStatement ps2 = connection.prepareStatement(SELECT_TASKS_BY_USER_ID)) {
 
             try (ResultSet r = ps1.executeQuery()) {
                 while (r.next()) {
-                    User user = new User(r.getString("firstName"),
-                                         r.getString("lastName"),
-                                         r.getString("userName"));
+                    User user = new User(r.getString("first_name"),
+                                         r.getString("last_name"),
+                                         r.getString("user_name"));
                     user.setId(r.getLong("id"));
                     users.add(user);
                 }
