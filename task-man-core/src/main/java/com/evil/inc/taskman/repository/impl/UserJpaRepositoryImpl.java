@@ -40,8 +40,10 @@ public class UserJpaRepositoryImpl<T, ID extends Serializable> extends BaseJpaRe
 
     @Override
     public void deleteById(final Long id) {
+        final EntityTransaction t = beginTransaction();
         final Optional<User> byId = findById(id);
         byId.ifPresent(this::delete);
+        t.commit();
     }
 
     @Override
