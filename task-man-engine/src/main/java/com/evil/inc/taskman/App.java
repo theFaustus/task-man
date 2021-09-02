@@ -10,24 +10,22 @@ import com.evil.inc.taskman.command.exceptions.InvalidCommandException;
 import com.evil.inc.taskman.service.exceptions.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Optional;
-
 @Slf4j
 public class App {
     public static void main(String[] args) throws UserNotFoundException, InvalidCommandException {
         UserService userService = ServiceFactory.getInstance().getUserService();
         TaskService taskService = ServiceFactory.getInstance().getTaskService();
 
-        userService.saveUser(new User("sponge-bob-333", "Sponge", "Bob"));
+        userService.create(new User("sponge-bob-333", "Sponge", "Bob"));
         final User byUsername = userService.getByUsername("sponge-bob-333");
         System.out.println(byUsername);
         final Task task = new Task("clean bikini bottom", "we need a clean city");
         byUsername.addTask(task);
-        userService.saveUser(byUsername);
+        userService.create(byUsername);
         final User byUsername2 = userService.getByUsername("sponge-bob-333");
         System.out.println(byUsername2);
         byUsername2.removeTask(task);
-        userService.saveUser(byUsername);
+        userService.create(byUsername);
         final User byId = userService.getById(26L);
         System.out.println(byId);
 

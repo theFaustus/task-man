@@ -33,7 +33,7 @@ public class AddUserCommand implements Command {
     @Override
     public void execute() throws InvalidCommandException {
         final User user = new User(username, firstName, lastName);
-        userService.saveUser(user);
+        userService.create(user);
         log.info(user + "created successfully");
     }
 }

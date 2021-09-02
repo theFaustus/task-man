@@ -14,7 +14,7 @@ public interface UserService {
      * @param user - a <code>User</code>  representing the user with firstName, lastName and username
      * @return the saved user
      */
-    void saveUser(User user);
+    void create(User user);
 
     /**
      * Returns a user, by his username
@@ -32,7 +32,7 @@ public interface UserService {
      * @return int the operation is executed
      */
     //one more logical feature
-    void deleteUserById(Long id) throws UserNotFoundException;
+    void deleteById(Long id) throws UserNotFoundException;
 
 
     /**
@@ -40,7 +40,7 @@ public interface UserService {
      *
      * @return all the users from database
      */
-    List<User> getAllUsers();
+    List<User> getAll();
 
     void update(User user);
 

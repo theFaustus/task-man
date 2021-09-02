@@ -16,6 +16,6 @@ public class GetAllUsersCommand implements Command {
     @Override
     public void execute() {
         log.info("All users : ");
-        userService.getAllUsers().forEach(u -> log.info(u.toString()));
+        userService.getAll().forEach(u -> log.info(u.toString()));
     }
 }
