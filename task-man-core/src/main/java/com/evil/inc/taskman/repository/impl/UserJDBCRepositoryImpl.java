@@ -36,7 +36,7 @@ public class UserJDBCRepositoryImpl implements UserRepository {
 
 
     @Override
-    public void saveUser(User user) {
+    public void save(User user) {
         try (Connection connection = DataSourceProvider.getPostgreSqlConnection();
              PreparedStatement ps = connection.prepareStatement(
                      "INSERT INTO users(firstName, lastName, userName) VALUES (?, ?, ?)",
@@ -96,7 +96,7 @@ public class UserJDBCRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public List<User> findAllUsers() {
+    public List<User> findAll() {
         List<User> users = new ArrayList<>();
         try (Connection connection = DataSourceProvider.getPostgreSqlConnection();
              PreparedStatement ps1 = connection.prepareStatement(SELECT_USERS);
@@ -137,7 +137,7 @@ public class UserJDBCRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void deleteUserById(Long id) {
+    public void deleteById(Long id) {
         try (Connection connection = DataSourceProvider.getPostgreSqlConnection();
              PreparedStatement ps1 = connection.prepareStatement(DELETE_USER)) {
             ps1.setLong(1, id);

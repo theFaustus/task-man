@@ -13,7 +13,7 @@ public interface UserRepository {
      *
      * @param user -(User) the user with firstName, lastName and username
      */
-    void saveUser(User user);
+    void save(User user);
 
     /**
      * Returns a user, by his username
@@ -25,7 +25,7 @@ public interface UserRepository {
     /**
      * Gets all the users from database
      */
-    List<User> findAllUsers();
+    List<User> findAll();
 
     void update(User user);
 
@@ -35,5 +35,5 @@ public interface UserRepository {
      * @param id -(Long) the user's id
      * @return
      */
-    void deleteUserById(Long id);
+    void deleteById(Long id);
 }

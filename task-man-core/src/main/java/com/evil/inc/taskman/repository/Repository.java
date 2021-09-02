@@ -15,6 +15,8 @@ public interface Repository<T, ID extends Serializable>{
 
     Optional<T> findById(ID id);
 
+    List<T> findAll();
+
     void delete(T entity);
 
     void update(T entity);

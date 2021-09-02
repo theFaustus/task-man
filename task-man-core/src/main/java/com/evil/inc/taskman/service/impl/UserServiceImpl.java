@@ -32,20 +32,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public void saveUser(User user) {
         log.info("Entered saveUser with user = {}", user);
-        userRepository.saveUser(user);
+        userRepository.save(user);
     }
 
 
     @Override
     public void deleteUserById(Long id) throws UserNotFoundException {
         log.info("Entered deleteUserById with id = {}", id);
-        userRepository.deleteUserById(id);
+        userRepository.deleteById(id);
     }
 
     @Override
     public List<User> getAllUsers() {
         log.debug("Entered getAllUsers");
-        return userRepository.findAllUsers();
+        return userRepository.findAll();
     }
 
     @Override

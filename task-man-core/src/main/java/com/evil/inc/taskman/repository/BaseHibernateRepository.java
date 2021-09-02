@@ -13,14 +13,14 @@ import java.io.Serializable;
 import java.util.Optional;
 
 @Slf4j
-public abstract class BaseRepository<T, ID extends Serializable> implements Repository<T, ID> {
+public abstract class BaseHibernateRepository<T, ID extends Serializable> implements Repository<T, ID> {
     private final StandardServiceRegistry registry;
     private final Metadata metadata;
     private SessionFactory sessionFactory;
 
     private Class<T> clazz;
 
-    public BaseRepository() {
+    public BaseHibernateRepository() {
         registry = new StandardServiceRegistryBuilder().configure("/hibernate.cfg.xml").build();
         metadata = new MetadataSources(registry).getMetadataBuilder().build();
         sessionFactory = metadata.getSessionFactoryBuilder().build();

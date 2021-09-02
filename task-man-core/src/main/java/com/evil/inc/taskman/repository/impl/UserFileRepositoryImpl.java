@@ -33,12 +33,12 @@ public class UserFileRepositoryImpl implements UserRepository {
     public static final String FILE_LOCATION = "taskmanager.ser";
 
     @Override
-    public void saveUser(final User user) {
+    public void save(final User user) {
         try (
                 FileOutputStream fout = new FileOutputStream(FILE_LOCATION);
                 ObjectOutputStream oos = new ObjectOutputStream(fout)
         ) {
-            List<User> users = findAllUsers();
+            List<User> users = findAll();
             users.add(user);
             oos.writeObject(users);
         } catch (IOException e) {
@@ -48,14 +48,14 @@ public class UserFileRepositoryImpl implements UserRepository {
 
     @Override
     public Optional<User> findByUsername(final String username) {
-        return findAllUsers()
+        return findAll()
                 .stream()
                 .filter(u -> u.getUserName().equals(username)).findFirst();
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<User> findAllUsers() {
+    public List<User> findAll() {
         try (
                 FileInputStream fin = new FileInputStream(FILE_LOCATION);
                 ObjectInputStream oos = new ObjectInputStream(fin)
@@ -68,7 +68,7 @@ public class UserFileRepositoryImpl implements UserRepository {
 
     @Override
     public void update(User user) {
-        List<User> users = findAllUsers();
+        List<User> users = findAll();
         try (
                 FileOutputStream fout = new FileOutputStream(FILE_LOCATION);
                 ObjectOutputStream oos = new ObjectOutputStream(fout)
@@ -86,7 +86,7 @@ public class UserFileRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void deleteUserById(final Long id) {
+    public void deleteById(final Long id) {
         throw new UnsupportedOperationException();
     }
 }

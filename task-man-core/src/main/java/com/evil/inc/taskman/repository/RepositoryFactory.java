@@ -2,6 +2,7 @@ package com.evil.inc.taskman.repository;
 
 import com.evil.inc.taskman.repository.impl.UserHibernateRepositoryImpl;
 import com.evil.inc.taskman.repository.impl.TaskJDBCRepositoryImpl;
+import com.evil.inc.taskman.repository.impl.UserJpaRepositoryImpl;
 
 public class RepositoryFactory {
     private static RepositoryFactory INSTANCE;
@@ -19,7 +20,7 @@ public class RepositoryFactory {
 
     public UserRepository getUserRepository(){
 //        return UserFileRepositoryImpl.getInstance();
-        return UserHibernateRepositoryImpl.getInstance();
+        return UserJpaRepositoryImpl.getInstance();
     }
 
     public TaskRepository getTaskRepository(){
