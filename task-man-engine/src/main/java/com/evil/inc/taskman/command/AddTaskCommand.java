@@ -33,7 +33,7 @@ public class AddTaskCommand implements Command {
     @Override
     public void execute() throws UserNotFoundException, InvalidCommandException {
 
-        taskService.addTaskFor(taskTitle, taskDescription, username);
+        taskService.createFor(taskTitle, taskDescription, username);
         log.info("Task [" + taskTitle + "] created successfully");
     }
 }

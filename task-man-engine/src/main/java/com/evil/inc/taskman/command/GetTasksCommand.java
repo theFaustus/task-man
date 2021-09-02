@@ -27,7 +27,7 @@ public class GetTasksCommand implements Command {
     public void execute() throws UserNotFoundException, InvalidCommandException {
 
         log.info("All tasks for [" + username + "] :");
-        taskService.getTasksFor(username).forEach(t -> log.info(t.toString()));
+        taskService.getAllFor(username).forEach(t -> log.info(t.toString()));
     }
 
 

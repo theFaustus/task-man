@@ -12,7 +12,7 @@ public interface TaskService {
      *
      * @param username a <code>String</code> the username given in order to get the tasks for
      */
-    List<Task> getTasksFor(String username) throws UserNotFoundException;
+    List<Task> getAllFor(String username) throws UserNotFoundException;
 
 
     /**
@@ -23,18 +23,18 @@ public interface TaskService {
      * @throws UserNotFoundException when the user is not found, this exception is thrown
      */
     //one more logical feature
-    void deleteTaskByTitleFor(String taskTitle, String username)  throws UserNotFoundException;
+    void deleteByTitleAndUsername(String taskTitle, String username) throws UserNotFoundException;
 
 
     /**
      * Adds tasks to a specific user, by giving his username
      *
-     * @param taskTitle a <code>String</code> representing the title of the task which will be added
+     * @param taskTitle       a <code>String</code> representing the title of the task which will be added
      * @param taskDescription a <code>String</code> representing the description of the task which will be added
-     * @param username a <code>String</code> representing the username of the user, for whom the task will be added
+     * @param username        a <code>String</code> representing the username of the user, for whom the task will be added
      * @throws UserNotFoundException when the user is not found, this exception is thrown
      */
-    int addTaskFor(String taskTitle, String taskDescription, String username) throws UserNotFoundException;
+    int createFor(String taskTitle, String taskDescription, String username) throws UserNotFoundException;
 
 
 }
