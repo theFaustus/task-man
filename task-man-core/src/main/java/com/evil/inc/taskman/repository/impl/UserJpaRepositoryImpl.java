@@ -25,6 +25,7 @@ public class UserJpaRepositoryImpl<T, ID extends Serializable> extends BaseJpaRe
     }
 
     private UserJpaRepositoryImpl() {
+        super(User.class);
     }
 
     @Override

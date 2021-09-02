@@ -89,4 +89,9 @@ public class UserFileRepositoryImpl implements UserRepository {
     public void deleteById(final Long id) {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public Optional<User> findById(final Long id) {
+        return Optional.empty();
+    }
 }

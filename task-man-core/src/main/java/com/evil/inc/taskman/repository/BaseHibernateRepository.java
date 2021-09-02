@@ -18,9 +18,10 @@ public abstract class BaseHibernateRepository<T, ID extends Serializable> implem
     private final Metadata metadata;
     private SessionFactory sessionFactory;
 
-    private Class<T> clazz;
+    private final Class<T> clazz;
 
-    public BaseHibernateRepository() {
+    protected BaseHibernateRepository(final Class<T> clazz) {
+        this.clazz = clazz;
         registry = new StandardServiceRegistryBuilder().configure("/hibernate.cfg.xml").build();
         metadata = new MetadataSources(registry).getMetadataBuilder().build();
         sessionFactory = metadata.getSessionFactoryBuilder().build();

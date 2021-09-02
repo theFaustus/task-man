@@ -147,5 +147,10 @@ public class UserJDBCRepositoryImpl implements UserRepository {
         }
     }
 
+    @Override
+    public Optional<User> findById(final Long id) {
+        return Optional.empty();
+    }
+
 
 }

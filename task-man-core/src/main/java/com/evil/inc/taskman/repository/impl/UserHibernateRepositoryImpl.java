@@ -26,6 +26,7 @@ public class UserHibernateRepositoryImpl<T, ID extends Serializable> extends Bas
     }
 
     private UserHibernateRepositoryImpl() {
+        super(User.class);
     }
 
     @Override

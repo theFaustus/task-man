@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import com.evil.inc.taskman.entity.User;
 
+import javax.swing.text.html.Option;
+
 public interface UserRepository {
 
     /**
@@ -36,4 +38,6 @@ public interface UserRepository {
      * @return
      */
     void deleteById(Long id);
+
+    Optional<User> findById(Long id);
 }

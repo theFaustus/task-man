@@ -22,7 +22,7 @@ public interface UserService {
      * @param username  - a <code>String</code> representing the username given in order to find the user
      * @return the user, with his id, firstName, lastName and userName
      */
-    Optional<User> findByUsername(String username);
+    User getByUsername(String username);
 
 
     /**
@@ -43,4 +43,6 @@ public interface UserService {
     List<User> getAllUsers();
 
     void update(User user);
+
+    User getById(Long id);
 }

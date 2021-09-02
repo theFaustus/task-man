@@ -17,7 +17,11 @@ public abstract class BaseJpaRepository<T, ID extends Serializable> implements R
 
     protected final EntityManager entityManager = Persistence.createEntityManagerFactory(
             "local-postgresql").createEntityManager();
-    private Class<T> clazz;
+    private final Class<T> clazz;
+
+    protected BaseJpaRepository(final Class<T> clazz) {
+        this.clazz = clazz;
+    }
 
     public EntityManager getEntityManager() {
         return entityManager;

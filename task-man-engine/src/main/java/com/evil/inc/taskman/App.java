@@ -19,14 +19,17 @@ public class App {
         TaskService taskService = ServiceFactory.getInstance().getTaskService();
 
         userService.saveUser(new User("sponge-bob-333", "Sponge", "Bob"));
-        final Optional<User> byUsername = userService.findByUsername("sponge-bob-333");
-        System.out.println(byUsername.get());
-        final User user = byUsername.get();
-        user.addTask(new Task("clean bikini bottom", "we need a clean city"));
-        userService.saveUser(user);
-        final Optional<User> byUsername2 = userService.findByUsername("sponge-bob-333");
-        System.out.println(byUsername2.get());
-
+        final User byUsername = userService.getByUsername("sponge-bob-333");
+        System.out.println(byUsername);
+        final Task task = new Task("clean bikini bottom", "we need a clean city");
+        byUsername.addTask(task);
+        userService.saveUser(byUsername);
+        final User byUsername2 = userService.getByUsername("sponge-bob-333");
+        System.out.println(byUsername2);
+        byUsername2.removeTask(task);
+        userService.saveUser(byUsername);
+        final User byId = userService.getById(26L);
+        System.out.println(byId);
 
 
 //        Command command = CommandFactory.parseCommandArguments(args);
