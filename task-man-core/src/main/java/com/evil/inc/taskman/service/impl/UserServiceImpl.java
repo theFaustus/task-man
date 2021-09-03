@@ -31,20 +31,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void create(User user) {
-        log.info("Entered saveUser with user = {}", user);
+        log.info("Creating {}", user);
         userRepository.save(user);
     }
 
 
     @Override
     public void deleteById(Long id) throws UserNotFoundException {
-        log.info("Entered deleteUserById with id = {}", id);
+        log.info("Deleting user with id = {}", id);
         userRepository.deleteById(id);
     }
 
     @Override
     public List<User> getAll() {
-        log.debug("Entered getAllUsers");
+        log.debug("Retrieving all users");
         return userRepository.findAll();
     }
 
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getByUsername(String username) {
-        log.info("Entered findByUsername with username = {}", username);
+        log.info("Retrieving user with username = {}", username);
         return this.userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException("User with username " + username + " not found"));
     }
 }

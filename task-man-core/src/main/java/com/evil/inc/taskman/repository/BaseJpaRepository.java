@@ -41,6 +41,7 @@ public abstract class BaseJpaRepository<T, ID extends Serializable> implements R
         try {
             entityManager.persist(entity);
             transaction.commit();
+            log.info("Saved {}", entity.toString());
         } catch (Exception e) {
             transaction.rollback();
             log.info("Something bad happened during fetching an entity");
@@ -55,6 +56,7 @@ public abstract class BaseJpaRepository<T, ID extends Serializable> implements R
         Root<T> root = cq.from(clazz);
         cq.select(root);
         final List<T> result = entityManager.createQuery(cq).getResultList();
+        log.info("Found {}", result.toString());
         transaction.commit();
         return result;
     }
@@ -64,6 +66,7 @@ public abstract class BaseJpaRepository<T, ID extends Serializable> implements R
         final EntityTransaction transaction = beginTransaction();
         try {
             entityManager.remove(entityManager.merge(entity));
+            log.info("Removed {}", entity.toString());
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
@@ -76,6 +79,7 @@ public abstract class BaseJpaRepository<T, ID extends Serializable> implements R
         final EntityTransaction transaction = beginTransaction();
         try {
             entityManager.merge(entity);
+            log.info("Updated {}", entity.toString());
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
@@ -87,6 +91,7 @@ public abstract class BaseJpaRepository<T, ID extends Serializable> implements R
     public Optional<T> findById(ID id) {
         final EntityTransaction transaction = beginTransaction();
         final T entity = entityManager.find(clazz, id);
+        log.info("Found {}", entity.toString());
         transaction.commit();
         return Optional.ofNullable(entity);
     }

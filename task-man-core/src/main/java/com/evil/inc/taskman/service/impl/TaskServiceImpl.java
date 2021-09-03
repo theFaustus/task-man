@@ -34,7 +34,6 @@ public class TaskServiceImpl implements TaskService {
         return taskRepository.getTasksFor(username);
     }
 
-
     //one more logical feature
     @Override
     public void deleteByTitleAndUsername(String taskTitle, String username) {
