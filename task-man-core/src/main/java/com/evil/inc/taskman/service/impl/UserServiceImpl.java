@@ -1,7 +1,6 @@
 package com.evil.inc.taskman.service.impl;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.evil.inc.taskman.entity.User;
 import com.evil.inc.taskman.repository.UserRepository;
@@ -55,13 +54,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getById(final Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User with id " + id + " not found"));
+        return userRepository.findById(id).orElseThrow(
+                () -> new UserNotFoundException("User with id " + id + " not found"));
     }
 
 
     @Override
     public User getByUsername(String username) {
         log.info("Retrieving user with username = {}", username);
-        return this.userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException("User with username " + username + " not found"));
+        return this.userRepository.findByUsername(username).orElseThrow(
+                () -> new UserNotFoundException("User with username " + username + " not found"));
     }
 }

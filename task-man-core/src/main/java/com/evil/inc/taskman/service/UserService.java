@@ -1,8 +1,8 @@
 package com.evil.inc.taskman.service;
 
 import java.util.List;
-import java.util.Optional;
 
+import com.evil.inc.taskman.annotations.ActionEmailConfirmation;
 import com.evil.inc.taskman.entity.User;
 import com.evil.inc.taskman.service.exceptions.UserNotFoundException;
 
@@ -14,6 +14,7 @@ public interface UserService {
      * @param user - a <code>User</code>  representing the user with firstName, lastName and username
      * @return the saved user
      */
+    @ActionEmailConfirmation(email = {"jhoonnyc@gmail.com"})
     void create(User user);
 
     /**
@@ -40,9 +41,11 @@ public interface UserService {
      *
      * @return all the users from database
      */
+    @ActionEmailConfirmation(email = {"jhoonnyc@gmail.com"})
     List<User> getAll();
 
     void update(User user);
 
+    @ActionEmailConfirmation(email = {"jhoonnyc@gmail.com"})
     User getById(Long id);
 }

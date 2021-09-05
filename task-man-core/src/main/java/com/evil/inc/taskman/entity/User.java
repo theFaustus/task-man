@@ -1,6 +1,7 @@
 package com.evil.inc.taskman.entity;
 
 
+import com.evil.inc.taskman.annotations.ActionEmailConfirmation;
 import lombok.Data;
 
 import javax.persistence.CascadeType;
@@ -21,6 +22,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "users")
+@ActionEmailConfirmation(email = {"jhoonnyc@gmail.com"})
 public class User implements Serializable {
 
     @Id
@@ -69,12 +71,12 @@ public class User implements Serializable {
         return Objects.hash(userName);
     }
 
-    public void addTask(Task task){
+    public void addTask(Task task) {
         tasks.add(task);
         task.getUsers().add(this);
     }
 
-    public void removeTask(Task task){
+    public void removeTask(Task task) {
         tasks.remove(task);
         task.getUsers().remove(this);
     }
