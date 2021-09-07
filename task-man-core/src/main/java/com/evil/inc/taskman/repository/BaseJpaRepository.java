@@ -44,7 +44,7 @@ public abstract class BaseJpaRepository<T, ID extends Serializable> implements R
             log.info("Saved {}", entity.toString());
         } catch (Exception e) {
             transaction.rollback();
-            log.info("Something bad happened during fetching an entity");
+            log.info("Something bad happened during committing the transaction", e);
         }
     }
 
@@ -70,7 +70,7 @@ public abstract class BaseJpaRepository<T, ID extends Serializable> implements R
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
-            log.info("Something bad happened during fetching an entity");
+            log.info("Something bad happened during committing the transaction", e);
         }
     }
 
@@ -83,7 +83,7 @@ public abstract class BaseJpaRepository<T, ID extends Serializable> implements R
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
-            log.info("Something bad happened during fetching an entity");
+            log.info("Something bad happened during committing the transaction", e);
         }
     }
 

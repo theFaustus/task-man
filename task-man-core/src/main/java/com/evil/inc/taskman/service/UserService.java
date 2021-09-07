@@ -14,7 +14,7 @@ public interface UserService {
      * @param user - a <code>User</code>  representing the user with firstName, lastName and username
      * @return the saved user
      */
-    @ActionEmailConfirmation(email = {"jhoonnyc@gmail.com"})
+//    @ActionEmailConfirmation(email = {"jhoonnyc@gmail.com"})
     void create(User user);
 
     /**
@@ -41,11 +41,11 @@ public interface UserService {
      *
      * @return all the users from database
      */
-    @ActionEmailConfirmation(email = {"jhoonnyc@gmail.com"})
+//    @ActionEmailConfirmation(email = {"jhoonnyc@gmail.com"})
     List<User> getAll();
 
     void update(User user);
 
-    @ActionEmailConfirmation(email = {"jhoonnyc@gmail.com"})
+    //    @ActionEmailConfirmation(email = {"jhoonnyc@gmail.com"})
     User getById(Long id);
 }

@@ -17,6 +17,7 @@ import java.util.Properties;
 @Slf4j
 public class EmailServiceImpl implements EmailService {
 
+    public static final String FROM_EMAIL_ADDRESS = "evil.inc.taskman@gmail.com";
     public static EmailServiceImpl INSTANCE;
 
     public static EmailServiceImpl getInstance() {
@@ -29,13 +30,11 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public void sendEmail(final Email email) {
-        String to = "destinationemail@gmail.com";
-        String from = "evil.inc.taskman@gmail.com";
         Session session = Session.getInstance(getServerProperties(), getAuthenticator());
 
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(from));
+            message.setFrom(new InternetAddress(FROM_EMAIL_ADDRESS));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email.getRecipient()));
             message.setSubject(email.getSubject());
             message.setContent(email.getContent(), "text/html");
@@ -43,7 +42,7 @@ public class EmailServiceImpl implements EmailService {
             Transport.send(message);
 
         } catch (MessagingException e) {
-            log.trace(e.getMessage(), e);
+            log.info(e.getMessage(), e);
         }
     }
 
