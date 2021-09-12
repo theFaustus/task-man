@@ -2,15 +2,17 @@ package com.evil.inc.taskman.service.impl;
 
 import java.util.List;
 
+import com.evil.inc.taskman.annotations.AspectActionEmailConfirmation;
 import com.evil.inc.taskman.entity.User;
 import com.evil.inc.taskman.repository.UserRepository;
 import com.evil.inc.taskman.service.UserService;
 import com.evil.inc.taskman.service.exceptions.UserNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public class UserServiceImpl implements UserService {
+    private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
     public static UserServiceImpl INSTANCE;
 
     private final UserRepository userRepository;
@@ -29,6 +31,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
+    @AspectActionEmailConfirmation(email = "jhoonnyc@gmail.com")
     public void create(User user) {
         log.info("Creating {}", user);
         userRepository.save(user);

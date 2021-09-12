@@ -2,11 +2,11 @@ package com.evil.inc.taskman.command;
 
 import com.evil.inc.taskman.utils.CommandParameterParser;
 import com.evil.inc.taskman.command.exceptions.InvalidCommandException;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@Slf4j
 public class CommandFactory {
-
+    private static final Logger log = LoggerFactory.getLogger(CommandFactory.class);
     //    -createUser -fn='FirstName' -ln='LastName' -un='UserName'
     public static final String CREATE_USER_COMMAND = "-createUser";
     //    -showAllUsers

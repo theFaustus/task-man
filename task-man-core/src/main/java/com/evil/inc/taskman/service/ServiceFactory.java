@@ -24,13 +24,14 @@ public class ServiceFactory {
     }
 
     public UserService getUserService() {
-        final UserServiceImpl instance = UserServiceImpl.getInstance(
-                RepositoryFactory.getInstance().getUserRepository());
-        ActionEmailConfirmationHandler emailConfirmationHandler = new ActionEmailConfirmationHandler(instance);
-        final UserService userService = (UserService) Proxy.newProxyInstance(UserService.class.getClassLoader(),
-                                                                             new Class[]{UserService.class},
-                                                                             emailConfirmationHandler);
-        return userService;
+// Using java proxy
+//        final UserServiceImpl instance = UserServiceImpl.getInstance(
+//                RepositoryFactory.getInstance().getUserRepository());
+//        ActionEmailConfirmationHandler emailConfirmationHandler = new ActionEmailConfirmationHandler(instance);
+//        return (UserService) Proxy.newProxyInstance(UserService.class.getClassLoader(),
+//                                                    new Class[]{UserService.class},
+//                                                    emailConfirmationHandler);
+        return UserServiceImpl.getInstance(RepositoryFactory.getInstance().getUserRepository());
     }
 
     public EmailService getEmailService() {

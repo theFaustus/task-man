@@ -1,8 +1,6 @@
 package com.evil.inc.taskman.entity;
 
 
-import com.evil.inc.taskman.annotations.ActionEmailConfirmation;
-import lombok.Data;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,10 +17,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-@Data
 @Entity
 @Table(name = "users")
-@ActionEmailConfirmation(email = {"jhoonnyc@gmail.com"})
 public class User implements Serializable {
 
     @Id
@@ -69,6 +65,46 @@ public class User implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(userName);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(final Long id) {
+        this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(final String userName) {
+        this.userName = userName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(final String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(final String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(final Set<Task> tasks) {
+        this.tasks = tasks;
     }
 
     public void addTask(Task task) {

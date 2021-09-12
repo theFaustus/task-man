@@ -7,11 +7,12 @@ import com.evil.inc.taskman.repository.TaskRepository;
 import com.evil.inc.taskman.service.TaskService;
 import com.evil.inc.taskman.service.exceptions.UserNotFoundException;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@Slf4j
 public class TaskServiceImpl implements TaskService {
 
+    private static final Logger log = LoggerFactory.getLogger(TaskServiceImpl.class);
     public static TaskServiceImpl INSTANCE;
 
     private final TaskRepository taskRepository;

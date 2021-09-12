@@ -2,7 +2,8 @@ package com.evil.inc.taskman.service.impl;
 
 import com.evil.inc.taskman.entity.Email;
 import com.evil.inc.taskman.service.EmailService;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -14,9 +15,9 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
-@Slf4j
 public class EmailServiceImpl implements EmailService {
 
+    private static final Logger log = LoggerFactory.getLogger(EmailServiceImpl.class);
     public static final String FROM_EMAIL_ADDRESS = "evil.inc.taskman@gmail.com";
     public static EmailServiceImpl INSTANCE;
 

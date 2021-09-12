@@ -4,16 +4,17 @@ import com.evil.inc.taskman.entity.Task;
 import com.evil.inc.taskman.entity.User;
 import com.evil.inc.taskman.repository.DataSourceProvider;
 import com.evil.inc.taskman.repository.UserRepository;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Slf4j
 public class UserJDBCRepositoryImpl implements UserRepository {
 
+    private static final Logger log = LoggerFactory.getLogger(UserJDBCRepositoryImpl.class);
     public static final String SELECT_TASKS_BY_USER_ID = "SELECT * FROM tasks JOIN user_task ut on tasks.id = ut.task_id WHERE ut.user_id = ?";
     private static final String DELETE_USER = "DELETE FROM users WHERE id=?";
     private static final String SELECT_USERS_BY_USER_NAME = "SELECT * FROM users WHERE user_name=?";

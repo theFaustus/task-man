@@ -2,13 +2,12 @@ package com.evil.inc.taskman.command;
 
 import com.evil.inc.taskman.service.UserService;
 import com.evil.inc.taskman.service.ServiceFactory;
-import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
-@Slf4j
-@Data
 public class GetAllUsersCommand implements Command {
+    private static final Logger log = LoggerFactory.getLogger(GetAllUsersCommand.class);
 
     private UserService userService = ServiceFactory.getInstance().getUserService();
 

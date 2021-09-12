@@ -1,8 +1,6 @@
 package com.evil.inc.taskman.entity;
 
 
-import lombok.Data;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,7 +13,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-@Data
 @Entity
 @Table(name = "tasks")
 public class Task implements Serializable {
@@ -48,6 +45,38 @@ public class Task implements Serializable {
     public void removeUser(User user) {
         users.remove(user);
         user.getTasks().remove(this);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(final Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(final String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(final String description) {
+        this.description = description;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(final Set<User> users) {
+        this.users = users;
     }
 
     @Override

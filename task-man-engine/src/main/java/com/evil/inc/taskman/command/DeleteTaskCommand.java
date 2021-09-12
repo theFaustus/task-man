@@ -5,13 +5,13 @@ import com.evil.inc.taskman.service.ServiceFactory;
 import com.evil.inc.taskman.service.TaskService;
 import com.evil.inc.taskman.service.exceptions.UserNotFoundException;
 import com.evil.inc.taskman.utils.CommandParameterParser;
-import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
-@Slf4j
-@Data
 public class DeleteTaskCommand implements Command {
+    private static final Logger log = LoggerFactory.getLogger(DeleteTaskCommand.class);
+
     private String taskTitle;
     private String username;
 

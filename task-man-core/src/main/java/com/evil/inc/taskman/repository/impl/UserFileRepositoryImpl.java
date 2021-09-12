@@ -12,11 +12,11 @@ import java.util.Optional;
 
 import com.evil.inc.taskman.entity.User;
 import com.evil.inc.taskman.repository.UserRepository;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@Slf4j
 public class UserFileRepositoryImpl implements UserRepository {
-
+    private static final Logger log = LoggerFactory.getLogger(UserFileRepositoryImpl.class);
     public static UserFileRepositoryImpl INSTANCE;
 
     private UserFileRepositoryImpl() {

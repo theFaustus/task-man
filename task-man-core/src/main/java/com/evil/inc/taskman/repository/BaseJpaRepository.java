@@ -1,6 +1,7 @@
 package com.evil.inc.taskman.repository;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -12,12 +13,12 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-@Slf4j
 public abstract class BaseJpaRepository<T, ID extends Serializable> implements Repository<T, ID> {
 
     protected final EntityManager entityManager = Persistence.createEntityManagerFactory(
             "local-postgresql").createEntityManager();
     private final Class<T> clazz;
+    private static final Logger log = LoggerFactory.getLogger(BaseJpaRepository.class);
 
     protected BaseJpaRepository(final Class<T> clazz) {
         this.clazz = clazz;

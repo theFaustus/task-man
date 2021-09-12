@@ -3,18 +3,18 @@ package com.evil.inc.taskman.repository.impl;
 import com.evil.inc.taskman.repository.BaseHibernateRepository;
 import com.evil.inc.taskman.entity.User;
 import com.evil.inc.taskman.repository.UserRepository;
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-@Slf4j
 public class UserHibernateRepositoryImpl<T, ID extends Serializable> extends BaseHibernateRepository<User, Long> implements UserRepository {
-
+    private static final Logger log = LoggerFactory.getLogger(UserHibernateRepositoryImpl.class);
     public static UserHibernateRepositoryImpl<User, Long> INSTANCE;
 
     public static UserHibernateRepositoryImpl<User, Long> getInstance() {

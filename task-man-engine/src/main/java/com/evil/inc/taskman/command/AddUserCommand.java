@@ -5,13 +5,13 @@ import com.evil.inc.taskman.entity.User;
 import com.evil.inc.taskman.service.ServiceFactory;
 import com.evil.inc.taskman.service.UserService;
 import com.evil.inc.taskman.utils.CommandParameterParser;
-import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
-@Slf4j
-@Data
 public class AddUserCommand implements Command {
+
+    private static final Logger log = LoggerFactory.getLogger(AddUserCommand.class);
 
     private String username;
     private String firstName;
@@ -21,7 +21,8 @@ public class AddUserCommand implements Command {
 
     public AddUserCommand(String[] commandAndParameters) throws InvalidCommandException {
         if (commandAndParameters.length < 4) {
-            throw new InvalidCommandException("Oops. Please refer to the usage of the command : " + "-createUser -fn='FirstName' -ln='LastName' -un='UserName'");
+            throw new InvalidCommandException(
+                    "Oops. Please refer to the usage of the command : " + "-createUser -fn='FirstName' -ln='LastName' -un='UserName'");
         }
 
         this.username = CommandParameterParser.getUsername(commandAndParameters);

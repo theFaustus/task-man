@@ -1,6 +1,5 @@
 package com.evil.inc.taskman.repository;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -8,15 +7,17 @@ import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.Optional;
 
-@Slf4j
 public abstract class BaseHibernateRepository<T, ID extends Serializable> implements Repository<T, ID> {
     private final StandardServiceRegistry registry;
     private final Metadata metadata;
     private SessionFactory sessionFactory;
+    private static final Logger log = LoggerFactory.getLogger(BaseHibernateRepository.class);
 
     private final Class<T> clazz;
 

@@ -8,12 +8,14 @@ import com.evil.inc.taskman.service.TaskService;
 import com.evil.inc.taskman.service.UserService;
 import com.evil.inc.taskman.command.exceptions.InvalidCommandException;
 import com.evil.inc.taskman.service.exceptions.UserNotFoundException;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-@Slf4j
 public class App {
+    private static final Logger log = LoggerFactory.getLogger(App.class);
+
     public static void main(String[] args) throws UserNotFoundException, InvalidCommandException {
         UserService userService = ServiceFactory.getInstance().getUserService();
         TaskService taskService = ServiceFactory.getInstance().getTaskService();
