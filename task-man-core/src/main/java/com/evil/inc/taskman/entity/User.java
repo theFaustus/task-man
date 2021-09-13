@@ -2,6 +2,9 @@ package com.evil.inc.taskman.entity;
 
 
 
+import com.evil.inc.taskman.annotations.AspectActionEmailConfirmation;
+import com.evil.inc.taskman.annotations.UserCreatedEmailConfirmation;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,6 +22,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
+@UserCreatedEmailConfirmation(email = "jhoonnyc@gmail.com")
 public class User implements Serializable {
 
     @Id

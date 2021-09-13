@@ -63,6 +63,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
+    @AspectActionEmailConfirmation(email = "jhoonnyc@gmail.com")
     public User getByUsername(String username) {
         log.info("Retrieving user with username = {}", username);
         return this.userRepository.findByUsername(username).orElseThrow(
