@@ -3,6 +3,7 @@ package com.evil.inc.taskman.service;
 import java.util.List;
 
 import com.evil.inc.taskman.annotations.ActionEmailConfirmation;
+import com.evil.inc.taskman.entity.Task;
 import com.evil.inc.taskman.entity.User;
 import com.evil.inc.taskman.service.exceptions.UserNotFoundException;
 
@@ -20,11 +21,13 @@ public interface UserService {
     /**
      * Returns a user, by his username
      *
-     * @param username  - a <code>String</code> representing the username given in order to find the user
+     * @param username - a <code>String</code> representing the username given in order to find the user
      * @return the user, with his id, firstName, lastName and userName
      */
     User getByUsername(String username);
 
+
+    void createAndAssign(User user, Task task);
 
     /**
      * Deletes an user by his id

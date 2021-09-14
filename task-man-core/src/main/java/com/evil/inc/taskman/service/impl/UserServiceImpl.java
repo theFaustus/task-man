@@ -3,6 +3,7 @@ package com.evil.inc.taskman.service.impl;
 import java.util.List;
 
 import com.evil.inc.taskman.annotations.AspectActionEmailConfirmation;
+import com.evil.inc.taskman.entity.Task;
 import com.evil.inc.taskman.entity.User;
 import com.evil.inc.taskman.repository.UserRepository;
 import com.evil.inc.taskman.service.UserService;
@@ -34,6 +35,13 @@ public class UserServiceImpl implements UserService {
     @AspectActionEmailConfirmation(email = "jhoonnyc@gmail.com")
     public void create(User user) {
         log.info("Creating {}", user);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void createAndAssign(User user, Task task) {
+        log.info("Creating {} with assigned {}", user, task);
+        user.addTask(task);
         userRepository.save(user);
     }
 

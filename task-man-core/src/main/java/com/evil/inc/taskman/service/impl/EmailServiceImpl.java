@@ -13,6 +13,8 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class EmailServiceImpl implements EmailService {
@@ -31,7 +33,9 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public void sendEmail(final Email email) {
-        Session session = Session.getInstance(getServerProperties(), getAuthenticator());
+        final Properties props = getServerProperties();
+        Session session = Session.getInstance(props, getAuthenticator(props.getProperty("gmail.user"),
+                                                                      props.getProperty("gmail.pass")));
 
         try {
             Message message = new MimeMessage(session);
@@ -47,10 +51,7 @@ public class EmailServiceImpl implements EmailService {
         }
     }
 
-    private Authenticator getAuthenticator() {
-        final String username = "evil.inc.taskman@gmail.com";
-        final String password = "tblkthsusqkmqpag";
-
+    private Authenticator getAuthenticator(String username, String password) {
         return new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -61,11 +62,12 @@ public class EmailServiceImpl implements EmailService {
 
     private Properties getServerProperties() {
         Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.socketFactory.port", "465");
-        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.port", "465");
+        try (InputStream resourceAsStream = UserServiceImpl.class.getClassLoader().getResourceAsStream(
+                "mail.properties")) {
+            props.load(resourceAsStream);
+        } catch (IOException e) {
+            log.trace("Oops, something went wrong during reading mail.properties {}", e.getMessage());
+        }
         return props;
     }
 }

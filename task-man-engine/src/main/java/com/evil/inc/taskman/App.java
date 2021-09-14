@@ -37,6 +37,9 @@ public class App {
         taskService.deleteByTitleAndUsername("clean bikini bottom 1", "sponge-bob-333");
         log.info(taskService.getAllFor("sponge-bob-333").toString());
 
+        userService.createAndAssign(new User("bdylan", "bob", "dylan"),
+                                    new Task("write a song", "should be about love"));
+
 //        Command command = CommandFactory.parseCommandArguments(args);
 //        try {
 //             command.execute();
