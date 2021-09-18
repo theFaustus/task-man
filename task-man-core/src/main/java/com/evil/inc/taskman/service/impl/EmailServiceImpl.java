@@ -20,7 +20,6 @@ import java.util.Properties;
 public class EmailServiceImpl implements EmailService {
 
     private static final Logger log = LoggerFactory.getLogger(EmailServiceImpl.class);
-    public static final String FROM_EMAIL_ADDRESS = "evil.inc.taskman@gmail.com";
     public static EmailServiceImpl INSTANCE;
 
     public static EmailServiceImpl getInstance() {
@@ -34,12 +33,12 @@ public class EmailServiceImpl implements EmailService {
     @Override
     public void sendEmail(final Email email) {
         final Properties props = getServerProperties();
-        Session session = Session.getInstance(props, getAuthenticator(props.getProperty("gmail.user"),
-                                                                      props.getProperty("gmail.pass")));
+        String username = props.getProperty("gmail.user");
+        Session session = Session.getInstance(props, getAuthenticator(username, props.getProperty("gmail.pass")));
 
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(FROM_EMAIL_ADDRESS));
+            message.setFrom(new InternetAddress(username));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email.getRecipient()));
             message.setSubject(email.getSubject());
             message.setContent(email.getContent(), "text/html");
@@ -62,8 +61,8 @@ public class EmailServiceImpl implements EmailService {
 
     private Properties getServerProperties() {
         Properties props = new Properties();
-        try (InputStream resourceAsStream = UserServiceImpl.class.getClassLoader().getResourceAsStream(
-                "mail.properties")) {
+        try (InputStream resourceAsStream = UserServiceImpl.class.getClassLoader()
+                .getResourceAsStream("mail.properties")) {
             props.load(resourceAsStream);
         } catch (IOException e) {
             log.trace("Oops, something went wrong during reading mail.properties {}", e.getMessage());

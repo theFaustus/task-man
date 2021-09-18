@@ -11,6 +11,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import java.io.Serializable;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class UserJpaRepositoryImpl<T, ID extends Serializable> extends BaseJpaRepository<User, Long> implements UserRepository {
     private static final Logger log = LoggerFactory.getLogger(UserJpaRepositoryImpl.class);
@@ -37,6 +38,17 @@ public class UserJpaRepositoryImpl<T, ID extends Serializable> extends BaseJpaRe
         final Optional<User> user = Optional.of(query.getSingleResult());
         t.commit();
         return user;
+    }
+
+
+    @Override
+    public Stream<User> streamAll() {
+        final EntityTransaction t = beginTransaction();
+        final TypedQuery<User> query = getEntityManager().createQuery(
+                "select u from User u", User.class);
+        final Stream<User> queryResultStream = query.getResultStream();
+        t.commit();
+        return queryResultStream;
     }
 
     @Override

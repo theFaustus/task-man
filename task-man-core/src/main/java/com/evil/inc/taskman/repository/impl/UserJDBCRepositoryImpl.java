@@ -11,6 +11,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class UserJDBCRepositoryImpl implements UserRepository {
 
@@ -132,6 +133,11 @@ public class UserJDBCRepositoryImpl implements UserRepository {
     @Override
     public void update(User user) {
 
+    }
+
+    @Override
+    public Stream<User> streamAll() {
+        return null;
     }
 
     @Override

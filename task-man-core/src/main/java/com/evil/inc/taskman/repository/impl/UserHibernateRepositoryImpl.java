@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class UserHibernateRepositoryImpl<T, ID extends Serializable> extends BaseHibernateRepository<User, Long> implements UserRepository {
     private static final Logger log = LoggerFactory.getLogger(UserHibernateRepositoryImpl.class);
@@ -48,6 +49,16 @@ public class UserHibernateRepositoryImpl<T, ID extends Serializable> extends Bas
         final List<User> list = query.list();
         t.commit();
         return list;
+    }
+
+    @Override
+    public Stream<User> streamAll() {
+        final Session session = getSession();
+        final Transaction t = session.beginTransaction();
+        final Query<User> query = session.createQuery("select u from User u", User.class);
+        final Stream<User> userStream = query.stream();
+        t.commit();
+        return userStream;
     }
 
     @Override

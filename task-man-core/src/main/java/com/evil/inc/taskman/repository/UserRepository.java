@@ -3,6 +3,7 @@ package com.evil.inc.taskman.repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import com.evil.inc.taskman.entity.User;
 
@@ -30,6 +31,8 @@ public interface UserRepository {
     List<User> findAll();
 
     void update(User user);
+
+    Stream<User> streamAll();
 
     /**
      * Deletes an user by his id

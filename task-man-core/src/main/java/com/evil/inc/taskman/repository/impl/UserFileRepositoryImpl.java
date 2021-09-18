@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import com.evil.inc.taskman.entity.User;
 import com.evil.inc.taskman.repository.UserRepository;
@@ -74,8 +75,8 @@ public class UserFileRepositoryImpl implements UserRepository {
                 ObjectOutputStream oos = new ObjectOutputStream(fout)
         ) {
             ListIterator<User> iterator = users.listIterator();
-            while (iterator.hasNext()){
-                if(iterator.next().getUserName().equals(user.getUserName())){
+            while (iterator.hasNext()) {
+                if (iterator.next().getUserName().equals(user.getUserName())) {
                     iterator.set(user);
                 }
             }
@@ -83,6 +84,11 @@ public class UserFileRepositoryImpl implements UserRepository {
         } catch (IOException e) {
             log.error("Something bad happened during fetching users = {} ", users, e);
         }
+    }
+
+    @Override
+    public Stream<User> streamAll() {
+        return null;
     }
 
     @Override

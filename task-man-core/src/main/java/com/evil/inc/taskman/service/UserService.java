@@ -39,6 +39,8 @@ public interface UserService {
     void deleteById(Long id) throws UserNotFoundException;
 
 
+    void assignUsersDefaultTask();
+
     /**
      * Gets all the users from database
      *

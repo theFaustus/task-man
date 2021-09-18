@@ -53,6 +53,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void assignUsersDefaultTask() {
+        userRepository.streamAll().filter(u -> u.getTasks().isEmpty()).forEach(u -> {
+            u.addTask(new Task("To do", "Empty"));
+            userRepository.save(u);
+        });
+    }
+
+    @Override
     public List<User> getAll() {
         log.debug("Retrieving all users");
         return userRepository.findAll();
