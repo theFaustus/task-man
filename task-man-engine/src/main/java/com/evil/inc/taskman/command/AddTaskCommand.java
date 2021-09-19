@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class AddTaskCommand implements Command {
+public class AddTaskCommand implements Command, Runnable {
     private static final Logger log = LoggerFactory.getLogger(AddTaskCommand.class);
 
     private String taskTitle;
@@ -26,6 +26,11 @@ public class AddTaskCommand implements Command {
         this.username = CommandParameterParser.getUsername(commandAndParameters);
     }
 
+    public AddTaskCommand(final String taskTitle, final String taskDescription, final String username) {
+        this.taskTitle = taskTitle;
+        this.taskDescription = taskDescription;
+        this.username = username;
+    }
 
     private final TaskService taskService = ServiceFactory.getInstance().getTaskService();
 
@@ -35,6 +40,17 @@ public class AddTaskCommand implements Command {
 
         taskService.createFor(taskTitle, taskDescription, username);
         log.info("Task [" + taskTitle + "] created successfully");
+    }
+
+    @Override
+    public void run() {
+        log.info("{}", Thread.currentThread().getName());
+        try {
+            execute();
+        } catch (InvalidCommandException e) {
+            System.out.println("Oops! Something went wrong during creation of the task : " + e.getMessage());
+            log.trace(e.getMessage(), e);
+        }
     }
 }
 

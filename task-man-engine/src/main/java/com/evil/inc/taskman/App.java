@@ -1,6 +1,7 @@
 package com.evil.inc.taskman;
 
 //import com.evil.inc.taskman.service.ServiceFactory;
+import com.evil.inc.taskman.command.CommandProcessor;
 import com.evil.inc.taskman.concurrency.SimpleThreadPool;
 import com.evil.inc.taskman.command.exceptions.InvalidCommandException;
 import com.evil.inc.taskman.service.exceptions.UserNotFoundException;
@@ -41,6 +42,8 @@ public class App {
 //            log.error("Something bad happened during entering command",e.getMessage());
 //            System.exit(0);
 //        }
+
+        CommandProcessor.run();
 
     }
 }

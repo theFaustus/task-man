@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class AddUserCommand implements Command {
+public class AddUserCommand implements Command, Runnable {
 
     private static final Logger log = LoggerFactory.getLogger(AddUserCommand.class);
 
@@ -30,11 +30,27 @@ public class AddUserCommand implements Command {
         this.lastName = CommandParameterParser.getLastName(commandAndParameters);
     }
 
+    public AddUserCommand(final String username, final String firstName, final String lastName) {
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     @Override
     public void execute() throws InvalidCommandException {
         final User user = new User(username, firstName, lastName);
         userService.create(user);
         log.info(user + "created successfully");
+    }
+
+    @Override
+    public void run() {
+        log.info("{}", Thread.currentThread().getName());
+        try {
+            execute();
+        } catch (InvalidCommandException e) {
+            System.out.println("Oops! Something went wrong during creation of the user : " + e.getMessage());
+            log.trace(e.getMessage(), e);
+        }
     }
 }

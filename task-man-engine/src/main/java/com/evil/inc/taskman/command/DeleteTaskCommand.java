@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class DeleteTaskCommand implements Command {
+public class DeleteTaskCommand implements Command, Runnable {
     private static final Logger log = LoggerFactory.getLogger(DeleteTaskCommand.class);
 
     private String taskTitle;
@@ -26,9 +26,25 @@ public class DeleteTaskCommand implements Command {
         this.username = CommandParameterParser.getUsername(commandAndParameters);
     }
 
+    public DeleteTaskCommand(final String taskTitle, final String username) {
+        this.taskTitle = taskTitle;
+        this.username = username;
+    }
+
     @Override
     public void execute() throws UserNotFoundException, InvalidCommandException {
         taskService.deleteByTitleAndUsername(taskTitle, username);
         log.info("Task [" + taskTitle + "] deleted successfully");
+    }
+
+    @Override
+    public void run() {
+        log.info("{}", Thread.currentThread().getName());
+        try {
+            execute();
+        } catch (InvalidCommandException e) {
+            System.out.println("Oops! Something went wrong during delete of the task : " + e.getMessage());
+            log.trace(e.getMessage(), e);
+        }
     }
 }

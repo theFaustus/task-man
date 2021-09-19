@@ -62,6 +62,12 @@ public class TaskJpaRepositoryImpl<T, ID extends Serializable> extends BaseJpaRe
 
     @Override
     public int saveTaskFor(final Task task, final String username) {
+        final TypedQuery<User> query = getEntityManager().createQuery(
+                "select u from User u where u.userName = :username", User.class);
+        query.setParameter("username", username);
+        final User user = query.getSingleResult();
+        task.addUser(user);
+        save(task);
         return 0;
     }
 }
