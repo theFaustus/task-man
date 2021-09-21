@@ -40,17 +40,6 @@ public class UserJpaRepositoryImpl<T, ID extends Serializable> extends BaseJpaRe
         return user;
     }
 
-
-    @Override
-    public Stream<User> streamAll() {
-        final EntityTransaction t = beginTransaction();
-        final TypedQuery<User> query = getEntityManager().createQuery(
-                "select u from User u", User.class);
-        final Stream<User> queryResultStream = query.getResultStream();
-        t.commit();
-        return queryResultStream;
-    }
-
     @Override
     public void deleteById(final Long id) {
         final EntityTransaction t = beginTransaction();

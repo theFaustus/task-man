@@ -65,6 +65,9 @@ public class CommandProcessor {
                 .thenRunAsync(new AddTaskCommand(taskTitle, taskDescription, username), executor)
                 .thenRunAsync(new GetAllUsersCommand(), executor)
                 .thenRunAsync(new GetTasksCommand(username), executor)
+                .thenRunAsync(() -> {
+                    log.info("Finished");
+                }, executor)
                 .join();
         executor.shutdown();
 

@@ -12,6 +12,7 @@ import javax.persistence.criteria.Root;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public abstract class BaseJpaRepository<T, ID extends Serializable> implements Repository<T, ID> {
 
@@ -60,6 +61,15 @@ public abstract class BaseJpaRepository<T, ID extends Serializable> implements R
         log.info("Found {}", result.toString());
         transaction.commit();
         return result;
+    }
+
+    @Override
+    public Stream<T> streamAll() {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<T> cq = builder.createQuery(clazz);
+        Root<T> root = cq.from(clazz);
+        cq.select(root);
+        return entityManager.createQuery(cq).getResultList().stream();
     }
 
     @Override

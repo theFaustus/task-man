@@ -4,6 +4,8 @@ package com.evil.inc.taskman;
 import com.evil.inc.taskman.command.CommandProcessor;
 import com.evil.inc.taskman.concurrency.SimpleThreadPool;
 import com.evil.inc.taskman.command.exceptions.InvalidCommandException;
+import com.evil.inc.taskman.service.ServiceFactory;
+import com.evil.inc.taskman.service.UserService;
 import com.evil.inc.taskman.service.exceptions.UserNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +14,7 @@ public class App {
     private static final Logger log = LoggerFactory.getLogger(App.class);
 
     public static void main(String[] args) throws UserNotFoundException, InvalidCommandException {
-//        UserService userService = ServiceFactory.getInstance().getUserService();
+        UserService userService = ServiceFactory.getInstance().getUserService();
 //        TaskService taskService = ServiceFactory.getInstance().getTaskService();
 //
 //        userService.create(new User("sponge-bob-333", "Sponge", "Bob"));
@@ -43,7 +45,8 @@ public class App {
 //            System.exit(0);
 //        }
 
-        CommandProcessor.run();
+        userService.assignUsersDefaultTask();
+//        CommandProcessor.run();
 
     }
 }
